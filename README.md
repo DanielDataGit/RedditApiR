@@ -14,7 +14,9 @@ You can install the redditApiR package directly from GitHub using the remotes or
 To install remotes (if you don't have it already):
 
 install.packages("remotes")
+
 library(remotes)
 
 remotes::install_github("DanielDataGit/redditApiR")
+
 library(redditApiR
