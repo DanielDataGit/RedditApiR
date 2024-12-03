@@ -11,8 +11,8 @@
 #' @param userAgent username used for Oauth authentication.
 #' @param subreddit (Optional) restricts search to subreddit if set to 1.
 #' @param query The search term or author name, depending on `type`.
-#' @param startTime (Optional) Start of the search range (POSIXct).
-#' @param endTime (Optional) End of the search range (POSIXct).
+#' @param startTime (Optional) Beginning of the time range (POSIXct).
+#' @param endTime (Optional) End of the time range (POSIXct).
 #' @param sort Sorting criteria: "relevance", "new", "hot", "top", "comments", "rising".
 #' @param time Time range: "all", "hour", "day", "month", week", "year".
 #' @param type Type of search: "query" or "author".
