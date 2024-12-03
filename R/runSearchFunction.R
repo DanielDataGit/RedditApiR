@@ -3,24 +3,24 @@
 #' @import(jsonlite)
 #' @import(dplyr)
 
-#' Run Reddit Search and Create DataFrame
+#' Run Reddit Search and Create df
 #'
-#' Executes a Reddit search for multiple keywords and subreddits, returning results in a DataFrame.
+#' Executes a Reddit search for custom params, returning results as a df.
 #'
 #' @name runSearch
 #' @title main function to search with custom parameters.
 #' @param userAgent (required) username for Oauth authentication.
 #' @param keywords A vector of keywords to search for.
 #' @param subreddits A vector of subreddits to search for.
-#' @param startTime Start of the search range (POSIXct).
-#' @param endTime End of the search range (POSIXct).
+#' @param startTime Beginning of the time range (POSIXct).
+#' @param endTime End of the time range (POSIXct).
 #' @param sort (default = "relevance") Sorting criteria: "relevance", "new", "hot", "top", "comments", "rising".
 #' @param time (default = "all") Time range: "all", "hour", "day", "month", week", "year".
 #' @param type (default = "query") Type of search: "query" or "author".
 #' @param batchSize (default/minimum = 100) Number of posts to fetch per unique query.
-#' @param getComments (default = FALSE) Whether to fetch comments for each post (logical).
+#' @param getComments (default = FALSE) Whether to fetch comments for each post.
 #' @param maxComments (default = 100) Maximum number of comments to fetch per post.
-#' @return A DataFrame containing posts and optionally their comments.
+#' @return A df containing posts and optionally their comments.
 #' @examples
 #' \dontrun{
 #' # Query search
