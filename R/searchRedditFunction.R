@@ -13,8 +13,8 @@
 #' @param query The search term or author name, depending on `type`.
 #' @param startTime (Optional) Start of the search range (POSIXct).
 #' @param endTime (Optional) End of the search range (POSIXct).
-#' @param sort Sorting criteria: "relevance", "new", "hot", etc.
-#' @param time Time range: "all", "day", "week", "year".
+#' @param sort Sorting criteria: "relevance", "new", "hot", "top", "comments", "rising".
+#' @param time Time range: "all", "hour", "day", "month", week", "year".
 #' @param type Type of search: "query" or "author".
 #' @param batchSize Number of posts to fetch per keyword.
 #' @param getComments Whether to fetch comments for each post.
