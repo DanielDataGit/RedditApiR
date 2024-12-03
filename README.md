@@ -9,11 +9,12 @@ You can install the redditApiR package directly from GitHub using the remotes or
 ### Prerequisites
 
 - R version 4.0.0 or higher
-- The `remotes` or `devtools` package installed
+- The remotes or devtools package installed
 
-To install `remotes` (if you don't have it already):
+To install remotes (if you don't have it already):
 
 install.packages("remotes")
 library(remotes)
+
 remotes::install_github("DanielDataGit/redditApiR")
 library(redditApiR
