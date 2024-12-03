@@ -1,0 +1,72 @@
+---
+title: "Using runSearch Function"
+author: "Daniel Tafmizi"
+output: rmarkdown::html_vignette
+package: redditApiR
+vignettes:  >
+  %\VignetteIndexEntry{My Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage{amsmath}
+---
+
+## Introduction
+
+This vignette demonstrates how to use the `redditApiR` package to interact with Reddit’s API.
+
+The redditApiR package consists of four functions. Three that act as helper functions, which can still be used independently, and the main runSearch Function. The runSearch function offers many customizable parameters to interact with the Reddit API. It handles comment/post retrieval, pagination, and filtering options. It includes many parameters which can be discovered in the help section.
+
+## Authentication
+
+**Before using the package, authenticate with the Reddit API.**
+
+## Examples
+
+\# basic query
+
+runSearch(
+
+userAgent = "username",
+
+keywords = c("data", "ML"),
+
+subreddits = "datascience"
+
+)
+
+\# advanced query
+
+runSearch(
+
+userAgent = "username",
+
+keywords = c("data", "ML"),
+
+subreddits = "datascience",
+
+startTime = "2024-06-01 12:00:00",
+
+sort = "type",
+
+time = "year",
+
+batchSize = 500,
+
+getComments = TRUE
+
+)
+
+\# author search
+
+runSearch(
+
+userAgent = "Username",
+
+type = "author",
+
+keywords = c("profileName"),
+
+subreddits = c("all")
+
+)
+
+)

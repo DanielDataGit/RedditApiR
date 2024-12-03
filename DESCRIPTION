@@ -1,0 +1,23 @@
+Package: redditApiR
+Type: Package
+Title: Toolkit for working with Reddit API in R
+Version: 0.0.0.1000
+Author: Daniel Tafmizi
+Maintainer: Daniel Tafmizi <dtafmizi@gmail.com>
+Description: Search, retrieve, and analyze Reddit content using R, 
+    including support for author-based queries and comments extraction.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports:
+  dplyr,
+  httr,
+  jsonlite
+  
+ 
+  

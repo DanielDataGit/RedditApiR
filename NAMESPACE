@@ -1,0 +1,11 @@
+
+#exports
+export(fetchComments)
+export(makeRequest)
+export(runSearch)
+export(searchReddit)
+
+#imports
+import(dplyr)
+import(httr)
+import(jsonlite)
