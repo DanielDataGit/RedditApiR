@@ -25,7 +25,9 @@ The redditApiR package consists of four functions. Three that act as helper func
 
 runSearch(
 
-userAgent = "username",
+userAgent = user_agent,
+
+headers = header,
 
 keywords = c("data", "ML"),
 
@@ -37,7 +39,9 @@ subreddits = "datascience"
 
 runSearch(
 
-userAgent = "username",
+userAgent = user_agent,
+
+headers = header,
 
 keywords = c("data", "ML"),
 
@@ -59,7 +63,9 @@ getComments = TRUE
 
 runSearch(
 
-userAgent = "Username",
+userAgent = user_agent,
+
+headers = header,
 
 type = "author",
 
