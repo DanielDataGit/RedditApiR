@@ -43,7 +43,7 @@
 
 runSearch <- function(userAgent = "useragent", headers = header, keywords = NA, subreddits = NA, startTime = NA, endTime = NA, sort = "relevance", time = "all", type = "query", batchSize = 100, getComments = FALSE, maxComments = 100) {
   #initialize df for storage
-  df <- data.frame(title = character(), body = character(), created = as.POSIXct(character()), keyword = character(), subreddit = character(), comments = I(list()), stringsAsFactors = FALSE)
+  df <- data.frame(title = character(), body = character(), author = character(), created = as.POSIXct(character()), keyword = character(), subreddit = character(), url = character(), comments = I(list()), stringsAsFactors = FALSE)
 
   for (x in keywords) { # Loop over keywords if specifed
     for (y in subreddits) { # Loop over Subreddits if specified
@@ -55,12 +55,14 @@ runSearch <- function(userAgent = "useragent", headers = header, keywords = NA, 
       # Store new results
       newDf <- do.call(rbind, lapply(results, function(post) {
         postData <- data.frame(
-          title = post$title,
-          body = post$body,
+          title = ifelse(!is.null(post$title), post$title, NA),
+          body = ifelse(!is.null(post$body), post$body, NA),
+          author = ifelse(!is.null(post$author), post$author, NA),
           created = post$created,
-          keyword = post$keyword,
-          subreddit = post$subreddit,
-          comments = I(list(post$comments)),
+          keyword = ifelse(!is.null(post$keyword), post$keyword, NA),
+          subreddit = ifelse(!is.null(post$subreddit), post$subreddit, NA),
+          url = ifelse(!is.null(post$url), post$url, NA),
+          comments = I(list(ifelse(!is.null(post$comments), post$comments, list()))),
           stringsAsFactors = FALSE
         )
         return(postData)
@@ -78,7 +80,7 @@ runSearch <- function(userAgent = "useragent", headers = header, keywords = NA, 
   return(if(getComments) {
     return(df)
   } else {
-    return(df[-6])
+    return(df[-7])
   })
 }
 
