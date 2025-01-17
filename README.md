@@ -10,7 +10,7 @@ You can install the redditApiR package directly from GitHub using the remotes or
 
 - R version 3.5 or higher
 - The remotes or devtools package installed
-- an authenticated reddit account
+- an authenticated reddit account # Instructions can be found at my blog post - https://danieltlis4370.blogspot.com/2024/12/blog-post.html
   
 install.packages("devtools")
 
