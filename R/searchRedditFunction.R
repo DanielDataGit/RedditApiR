@@ -11,10 +11,10 @@
 #' @param userAgent username used for Oauth authentication.
 #' @param subreddit (Optional) restricts search to subreddit if set to 1.
 #' @param query The search term or author name, depending on `type`.
-#' @param startTime (Optional) Beginning of the time range (POSIXct).
-#' @param endTime (Optional) End of the time range (POSIXct).
-#' @param sort Sorting criteria: "relevance", "new", "hot", "top", "comments", "rising".
-#' @param time Time range: "all", "hour", "day", "month", week", "year".
+#' @param startTime (Optional) Start of the search range (POSIXct).
+#' @param endTime (Optional) End of the search range (POSIXct).
+#' @param sort Sorting criteria: "relevance", "new", "hot", etc.
+#' @param time Time range: "all", "day", "week", "year".
 #' @param type Type of search: "query" or "author".
 #' @param batchSize Number of posts to fetch per keyword.
 #' @param getComments Whether to fetch comments for each post.
@@ -22,14 +22,14 @@
 #' @return A list of posts, each with details such as title, body, created time, subreddit, and comments.
 #' @export
 
-searchReddit <- function(userAgent, subreddit = NA, query = NA, startTime = NA, endTime = NA, sort = "relevance", time = "all", type = "query", batchSize = 100, getComments = FALSE, maxComments = 100) {
+searchReddit <- function(userAgent, header, subreddit = NA, query = NA, startTime = NA, endTime = NA, sort = "relevance", time = "all", type = "query", batchSize = 100, getComments = FALSE, maxComments = 100) {
   results <- list() # Holds results
   after <- NULL # Holds after value
   # Choose url given params
   url <- if (!is.na(subreddit)) {
-    paste0('https://www.reddit.com/r/', subreddit, '/search.json')
+    paste0('https://oauth.reddit.com/r/', subreddit, '/search.json')
   } else {
-    'https://www.reddit.com/search.json'
+    'https://oauth.reddit.com/search.json'
   }
   # Setup API params
   params <- list(
@@ -41,7 +41,7 @@ searchReddit <- function(userAgent, subreddit = NA, query = NA, startTime = NA, 
   )
 
   # api headers for authorization
-  headers <- c('User-Agent' = paste0("praw:reddit.pagination:v1.0 (by /u/", userAgent, ")"))
+  headers <- header #add_headers(Authorization = paste("bearer", token), `User-Agent` = userAgent)
 
   while (length(results) < batchSize) { #keep searching till after is null or limit is reached
     if (!is.null(after)) {
