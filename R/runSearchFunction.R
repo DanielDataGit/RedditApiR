@@ -3,24 +3,24 @@
 #' @import(jsonlite)
 #' @import(dplyr)
 
-#' Run Reddit Search and Create df
+#' Run Reddit Search and Create DataFrame
 #'
-#' Executes a Reddit search for custom params, returning results as a df.
+#' Executes a Reddit search for multiple keywords and subreddits, returning results in a DataFrame.
 #'
 #' @name runSearch
 #' @title main function to search with custom parameters.
 #' @param userAgent (required) username for Oauth authentication.
 #' @param keywords A vector of keywords to search for.
 #' @param subreddits A vector of subreddits to search for.
-#' @param startTime Beginning of the time range (POSIXct).
-#' @param endTime End of the time range (POSIXct).
+#' @param startTime Start of the search range (POSIXct).
+#' @param endTime End of the search range (POSIXct).
 #' @param sort (default = "relevance") Sorting criteria: "relevance", "new", "hot", "top", "comments", "rising".
 #' @param time (default = "all") Time range: "all", "hour", "day", "month", week", "year".
 #' @param type (default = "query") Type of search: "query" or "author".
 #' @param batchSize (default/minimum = 100) Number of posts to fetch per unique query.
-#' @param getComments (default = FALSE) Whether to fetch comments for each post.
+#' @param getComments (default = FALSE) Whether to fetch comments for each post (logical).
 #' @param maxComments (default = 100) Maximum number of comments to fetch per post.
-#' @return A df containing posts and optionally their comments.
+#' @return A DataFrame containing posts and optionally their comments.
 #' @examples
 #' \dontrun{
 #' # Query search
@@ -41,7 +41,7 @@
 #' }
 #' @export
 
-runSearch <- function(userAgent = "username", keywords = NA, subreddits = NA, startTime = NA, endTime = NA, sort = "relevance", time = "all", type = "query", batchSize = 100, getComments = FALSE, maxComments = 100) {
+runSearch <- function(userAgent = "useragent", headers = header, keywords = NA, subreddits = NA, startTime = NA, endTime = NA, sort = "relevance", time = "all", type = "query", batchSize = 100, getComments = FALSE, maxComments = 100) {
   #initialize df for storage
   df <- data.frame(title = character(), body = character(), created = as.POSIXct(character()), keyword = character(), subreddit = character(), comments = I(list()), stringsAsFactors = FALSE)
 
@@ -50,7 +50,7 @@ runSearch <- function(userAgent = "username", keywords = NA, subreddits = NA, st
       print(paste("Starting search for keyword: '", x, "' in subreddit '", y, "'", sep = ""))
 
       #Run searchReddit helper function
-      results <- searchReddit(userAgent = userAgent, query = x, subreddit = y, startTime = startTime, endTime = endTime, sort = sort, time = time, type = type, batchSize = batchSize, getComments = getComments, maxComments = maxComments)
+      results <- searchReddit(userAgent = userAgent, headers, query = x, subreddit = y, startTime = startTime, endTime = endTime, sort = sort, time = time, type = type, batchSize = batchSize, getComments = getComments, maxComments = maxComments)
 
       # Store new results
       newDf <- do.call(rbind, lapply(results, function(post) {
@@ -68,7 +68,6 @@ runSearch <- function(userAgent = "username", keywords = NA, subreddits = NA, st
 
       # bind new results
       df <- bind_rows(df, newDf)
-
       print(paste("Retrieved posts for keyword '", x, "' in subreddit '", y, "':", sep = ""))
       print(paste("Finished search for keyword '", x, "' in subreddit '", y, "'", sep = ""))
 
