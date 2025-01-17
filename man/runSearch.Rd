@@ -5,7 +5,8 @@
 \title{main function to search with custom parameters.}
 \usage{
 runSearch(
-  userAgent = "username",
+  userAgent = user_agent,
+  headers = header,
   keywords = NA,
   subreddits = NA,
   startTime = NA,
@@ -20,6 +21,8 @@ runSearch(
 }
 \arguments{
 \item{userAgent}{(required) username for Oauth authentication.}
+
+\item{headers}{(required) headers for Oauth authentication.}
 
 \item{keywords}{A vector of keywords to search for.}
 
@@ -51,14 +54,16 @@ main function to search with custom parameters.
 \dontrun{
 # Query search
  runSearch(
- userAgent = "OauthUsername",
+ userAgent = user_agent,
+ headers = header,
  keywords = c("data", "ml"),
  subreddits = c("all", "datascience"),
  batchSize = 300)
 
 # author search
 runSearch(
-userAgent = "OauthUsername",
+userAgent = user_agent,
+headers = header,
 type = "author",
 keywords = c("profileName"),
 subreddits = c("all"),
