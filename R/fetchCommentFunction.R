@@ -41,7 +41,7 @@ fetchComments <- function(permalink, headers, maxComments) {
   }
   # Repeat processing till after is null or limit is reached for each post
   repeat {
-    commentsUrl <- paste0('https://www.reddit.com', permalink, '.json?limit=100', if (!is.null(after)) paste0('&after=', after) else '')
+    commentsUrl <- paste0('https://oauth.reddit.com', permalink, '.json?limit=100', if (!is.null(after)) paste0('&after=', after) else '')
     commentsData <- fetchPage(commentsUrl)
 
     if (is.null(commentsData)) break
@@ -62,3 +62,4 @@ fetchComments <- function(permalink, headers, maxComments) {
 
   return(comments)
 }
+
