@@ -66,9 +66,11 @@ searchReddit <- function(userAgent, header, subreddit = NA, query = NA, startTim
         postData <- list(
           title = submissionData$title,
           body = ifelse(is.null(submissionData$selftext), NA, submissionData$selftext),
+          author = submissionData$author,
           created = createdUtc,
           keyword = query,
-          subreddit = submissionData$subreddit
+          subreddit = submissionData$subreddit,
+          url = submissionData$url
         )
 
         # Process comments if specified
