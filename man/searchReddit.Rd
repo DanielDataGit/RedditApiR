@@ -6,6 +6,7 @@
 \usage{
 searchReddit(
   userAgent,
+  header,
   subreddit = NA,
   query = NA,
   startTime = NA,
@@ -20,6 +21,8 @@ searchReddit(
 }
 \arguments{
 \item{userAgent}{username used for Oauth authentication.}
+
+\item{header}{headers used for Oauth authentication.}
 
 \item{subreddit}{(Optional) restricts search to subreddit if set to 1.}
 
