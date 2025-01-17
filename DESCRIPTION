@@ -3,7 +3,7 @@ Type: Package
 Title: Toolkit for working with Reddit API in R
 Version: 0.0.0.1000
 Author: Daniel Tafmizi
-Maintainer: Daniel Tafmizi <dtafmizi@gmail.com>
+Maintainer: Daniel Tafmizi <danieltafmizi@usf.edu>
 Description: Search, retrieve, and analyze Reddit content using R, 
     including support for author-based queries and comments extraction.
 License: GPL-2
