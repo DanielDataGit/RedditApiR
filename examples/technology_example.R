@@ -167,6 +167,7 @@ tryCatch({
     created = as.POSIXct(Sys.time() - (1:5) * 3600),  # Sample timestamps
     subreddit = rep("technology", 5),
     url = paste0("https://reddit.com/r/technology/post_", 1:5),
+    keyword = rep(NA, 5),
     stringsAsFactors = FALSE
   )
   
@@ -189,11 +190,9 @@ if (nrow(technology_posts) > 0) {
     cat("  Created:", format(technology_posts$created[i], "%Y-%m-%d %H:%M:%S"), "\n")
     cat("  URL:", technology_posts$url[i], "\n")
     
-    # Note: The original data structure may include 'score' if available
-    # For now, we'll work with the fields that are guaranteed to be present
-    if ("score" %in% names(technology_posts)) {
-      cat("  Score:", technology_posts$score[i], "\n")
-    }
+    # Note: Score information is not currently extracted by the RedditApiR package
+    # The Reddit API provides score data, but it's not included in the current implementation
+    # Available fields from runSearch: title, body, author, created, keyword, subreddit, url
     
     cat("\n")
   }
@@ -206,6 +205,14 @@ if (nrow(technology_posts) > 0) {
       format(min(technology_posts$created, na.rm = TRUE), "%Y-%m-%d"), 
       "to", 
       format(max(technology_posts$created, na.rm = TRUE), "%Y-%m-%d"), "\n")
+  
+  # Display data structure information
+  cat("\nData structure:\n")
+  cat("Columns available:", paste(names(technology_posts), collapse = ", "), "\n")
+  cat("Data types:\n")
+  for (col in names(technology_posts)) {
+    cat("  ", col, ":", class(technology_posts[[col]])[1], "\n")
+  }
   
   # Most active authors
   if (nrow(technology_posts) > 1) {
@@ -232,7 +239,8 @@ if (nrow(technology_posts) > 0) {
 #     select(title, author, created, subreddit, url) %>%
 #     mutate(
 #       created = format(created, "%Y-%m-%d %H:%M:%S"),
-#       title = gsub("\n|\r", " ", title)  # Clean up titles for CSV
+#       title = gsub("[\n\r\t]", " ", title),  # Clean up titles for CSV
+#       title = gsub("\"", "'", title)         # Replace quotes to avoid CSV issues
 #     )
 #   
 #   # Save to CSV file
@@ -243,6 +251,10 @@ if (nrow(technology_posts) > 0) {
 #   cat("Data saved to:", csv_filename, "\n")
 #   cat("File contains", nrow(csv_data), "posts with the following columns:\n")
 #   cat("  -", paste(names(csv_data), collapse = "\n  - "), "\n")
+#   
+#   # Display first few rows as preview
+#   cat("\nPreview of exported data:\n")
+#   print(head(csv_data, 3))
 # }
 
 ################################################################################
@@ -288,4 +300,39 @@ cat("- Package vignettes: vignette('vignetteGuide', package = 'redditApiR')\n")
 cat("- Function help: ?runSearch, ?searchReddit\n")
 cat("- Authentication guide: https://danieltlis4370.blogspot.com/2024/12/blog-post.html\n")
 
+################################################################################
+# Troubleshooting Guide
+################################################################################
+
+cat("\n=== TROUBLESHOOTING GUIDE ===\n\n")
+
+cat("Common issues and solutions:\n\n")
+
+cat("1. Authentication Errors:\n")
+cat("   - Verify your client_id and client_secret are correct\n")
+cat("   - Check that your Reddit app type is set to 'script'\n")
+cat("   - Ensure your username and password are correct\n")
+cat("   - Make sure your Reddit account is not suspended\n\n")
+
+cat("2. Rate Limiting:\n")
+cat("   - Reddit API has rate limits (60 requests per minute)\n")
+cat("   - If you get rate limited, wait a minute before retrying\n")
+cat("   - Consider reducing batchSize for large requests\n\n")
+
+cat("3. No Data Returned:\n")
+cat("   - Check if the subreddit exists and is public\n")
+cat("   - Try different time ranges (day, week, month)\n")
+cat("   - Verify your search parameters are valid\n\n")
+
+cat("4. Package Installation Issues:\n")
+cat("   - Make sure you have devtools installed\n")
+cat("   - Check your internet connection\n")
+cat("   - Try: devtools::install_github('DanielDataGit/redditApiR', force = TRUE)\n\n")
+
+cat("5. Missing Fields:\n")
+cat("   - The package returns: title, body, author, created, keyword, subreddit, url\n")
+cat("   - Score data is not currently extracted (feature request for future versions)\n")
+cat("   - For more fields, you may need to modify the package functions\n\n")
+
 cat("\n=== SCRIPT COMPLETED ===\n")
+cat("Thank you for using RedditApiR!\n")
