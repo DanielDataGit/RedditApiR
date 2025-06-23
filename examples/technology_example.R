@@ -53,6 +53,13 @@ reddit_user <- "YOUR_REDDIT_USERNAME_HERE" # Your Reddit username
 # User agent (should be descriptive and include your username)
 user_agent <- paste0("r/technology-fetcher:v1.0 (by /u/", reddit_user, ")")
 
+# IMPORTANT: Check that credentials have been updated
+if (client_id == "YOUR_CLIENT_ID_HERE" || 
+    client_secret == "YOUR_CLIENT_SECRET_HERE" || 
+    reddit_user == "YOUR_REDDIT_USERNAME_HERE") {
+  stop("Please update the Reddit API credentials with your actual values before running this script!")
+}
+
 # STEP 3: Obtain OAuth2 token from Reddit API
 # This function handles the OAuth2 authentication flow
 get_reddit_token <- function(client_id, client_secret, user_agent) {
